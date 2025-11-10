@@ -30,6 +30,7 @@ config.php          # Configurações da aplicação
 helpers.php         # Funções utilitárias e helpers de sessão/CSRF
 pcm_service.php     # Camada de acesso a dados e regras de negócio
 database.php        # Conexão SQLite e criação de schema
+index.php, login.php, etc. (raiz) # Encaminham para os entrypoints em public/
 ```
 
 ## Como executar
@@ -41,6 +42,8 @@ database.php        # Conexão SQLite e criação de schema
    ```bash
    php -S localhost:8080 -t public
    ```
+
+   Caso utilize um ambiente como XAMPP/WAMP que aponta diretamente para a raiz do projeto, basta acessar `http://localhost/INDUS-OS---PCM/login.php`. Os arquivos na raiz redirecionam para os scripts de `public/`.
 
 4. Acesse `http://localhost:8080` e faça login com:
    - Usuário: `admin@pcm.local`
