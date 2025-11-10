@@ -1,8 +1,8 @@
 <?php
 /** @var array $metrics */
 ?>
-<div class="row g-4 app-metric-grid">
-    <div class="col-md-3">
+<div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 app-metric-grid">
+    <div class="col">
         <div class="card border-0 app-metric-card app-metric-card--blue">
             <div class="card-body">
                 <div class="app-metric-icon">
@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col">
         <div class="card border-0 app-metric-card app-metric-card--emerald">
             <div class="card-body">
                 <div class="app-metric-icon">
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col">
         <div class="card border-0 app-metric-card app-metric-card--amber">
             <div class="card-body">
                 <div class="app-metric-icon">
@@ -44,7 +44,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col">
         <div class="card border-0 app-metric-card app-metric-card--sky">
             <div class="card-body">
                 <div class="app-metric-icon">
@@ -54,6 +54,20 @@
                     <h6 class="text-uppercase small mb-1 opacity-75">Técnicos</h6>
                     <h3 class="fw-semibold mb-0"><?= $metrics['technicians'] ?></h3>
                     <span class="d-block small opacity-75">Equipe disponível</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card border-0 app-metric-card app-metric-card--violet">
+            <div class="card-body">
+                <div class="app-metric-icon">
+                    <i class="bi bi-briefcase"></i>
+                </div>
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Clientes</h6>
+                    <h3 class="fw-semibold mb-0"><?= $metrics['clients'] ?></h3>
+                    <span class="d-block small opacity-75">Contratos ativos</span>
                 </div>
             </div>
         </div>

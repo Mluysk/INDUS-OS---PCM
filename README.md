@@ -10,6 +10,7 @@ Aplicação PHP completa para gestão de Planejamento e Controle de Manutenção
 - **Planos de manutenção** com frequência, tempo estimado, ferramentas e notas de segurança.
 - **Ordens de serviço completas** (corretivas/preventivas) com controle de status, prioridade, responsáveis, datas e feedback.
 - **Equipe técnica** com contatos e especialidades para facilitar a alocação de mão de obra.
+- **Clientes e contratantes** com dados comerciais, responsáveis e histórico para relacionar ativos atendidos.
 - **Checklists operacionais** integrados às ordens, permitindo registrar passo a passo e marcar conclusão.
 - **Proteções CSRF e hashing de senha** para maior segurança.
 - **Banco de dados SQLite** embarcado, sem dependências adicionais.
@@ -23,9 +24,11 @@ public/             # Entrypoints acessados pelo servidor web
 ├── equipment.php   # CRUD de equipamentos
 ├── plans.php       # CRUD de planos de manutenção
 ├── work_orders.php # CRUD de ordens de serviço e checklists
-└── technicians.php # CRUD de técnicos
+├── technicians.php # CRUD de técnicos
+└── clients.php     # Cadastro e lista de clientes
 
 templates/          # Layouts e views (Bootstrap 5)
+├── clients/        # Telas de clientes
 config.php          # Configurações da aplicação
 helpers.php         # Funções utilitárias e helpers de sessão/CSRF
 pcm_service.php     # Camada de acesso a dados e regras de negócio

@@ -333,6 +333,11 @@
             color: #0f172a;
         }
 
+        .app-metric-card--violet {
+            background: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
+            color: #f5f3ff;
+        }
+
         .app-metric-icon {
             display: inline-flex;
             align-items: center;
@@ -531,6 +536,7 @@
                             ['href' => pcm_url('equipment.php'), 'label' => 'Ativos & Equipamentos', 'icon' => 'bi-box-seam'],
                             ['href' => pcm_url('plans.php'), 'label' => 'Planos de Manutenção', 'icon' => 'bi-calendar2-check'],
                             ['href' => pcm_url('work_orders.php'), 'label' => 'Ordens de Serviço', 'icon' => 'bi-clipboard-check'],
+                            ['href' => pcm_url('clients.php'), 'label' => 'Clientes', 'icon' => 'bi-briefcase'],
                             ['href' => pcm_url('technicians.php'), 'label' => 'Técnicos', 'icon' => 'bi-people'],
                         ];
                         $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?? '';
@@ -571,6 +577,7 @@
                             <div class="app-toolbar">
                                 <a href="<?= htmlspecialchars(pcm_url('work_orders.php?action=create')) ?>" class="btn btn-primary"><i class="bi bi-clipboard-plus me-1"></i> Nova OS</a>
                                 <a href="<?= htmlspecialchars(pcm_url('equipment.php?action=create')) ?>" class="btn btn-soft"><i class="bi bi-cpu me-1"></i> Cadastrar ativo</a>
+                                <a href="<?= htmlspecialchars(pcm_url('clients.php?action=create')) ?>" class="btn btn-soft"><i class="bi bi-person-plus me-1"></i> Novo cliente</a>
                                 <div class="app-toolbar-divider"></div>
                                 <div class="app-toolbar-pill">
                                     <i class="bi bi-person-badge"></i>

@@ -19,7 +19,23 @@ function pcm_db(): PDO
         pcm_bootstrap_schema($pdo);
     }
 
+    pcm_update_schema($pdo);
+
     return $pdo;
+}
+
+function pcm_update_schema(PDO $pdo): void
+{
+    $pdo->exec('CREATE TABLE IF NOT EXISTS clients (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        company_name TEXT NOT NULL,
+        contact_name TEXT,
+        email TEXT,
+        phone TEXT,
+        document TEXT,
+        segment TEXT,
+        notes TEXT
+    )');
 }
 
 function pcm_bootstrap_schema(PDO $pdo): void

@@ -11,6 +11,7 @@ function pcm_dashboard_metrics(): array
     $plans = (int) $pdo->query('SELECT COUNT(*) FROM maintenance_plans')->fetchColumn();
     $openWorkOrders = (int) $pdo->query("SELECT COUNT(*) FROM work_orders WHERE status IN ('aberta','em_execucao')")->fetchColumn();
     $technicians = (int) $pdo->query('SELECT COUNT(*) FROM technicians')->fetchColumn();
+    $clients = (int) $pdo->query('SELECT COUNT(*) FROM clients')->fetchColumn();
 
     $statusDistribution = $pdo->query('SELECT status, COUNT(*) as total FROM work_orders GROUP BY status')->fetchAll();
     $recentWorkOrders = $pdo->query('SELECT wo.*, eq.name AS equipment_name, tech.name AS technician_name, mp.title AS plan_title
@@ -25,6 +26,7 @@ function pcm_dashboard_metrics(): array
         'plans' => $plans,
         'open_work_orders' => $openWorkOrders,
         'technicians' => $technicians,
+        'clients' => $clients,
         'status_distribution' => $statusDistribution,
         'recent_work_orders' => $recentWorkOrders,
     ];
@@ -91,6 +93,12 @@ function pcm_all_technicians(): array
     return $pdo->query('SELECT * FROM technicians ORDER BY name')->fetchAll();
 }
 
+function pcm_all_clients(): array
+{
+    $pdo = pcm_db();
+    return $pdo->query('SELECT * FROM clients ORDER BY company_name')->fetchAll();
+}
+
 function pcm_save_technician(array $data, ?int $id = null): void
 {
     $pdo = pcm_db();
@@ -112,6 +120,51 @@ function pcm_save_technician(array $data, ?int $id = null): void
             ':specialty' => $data['specialty'] ?? null,
         ]);
     }
+}
+
+function pcm_find_client(int $id): ?array
+{
+    $pdo = pcm_db();
+    $stmt = $pdo->prepare('SELECT * FROM clients WHERE id = :id');
+    $stmt->execute([':id' => $id]);
+    $client = $stmt->fetch();
+    return $client ?: null;
+}
+
+function pcm_save_client(array $data, ?int $id = null): void
+{
+    $pdo = pcm_db();
+    if ($id) {
+        $stmt = $pdo->prepare('UPDATE clients SET company_name = :company_name, contact_name = :contact_name, email = :email, phone = :phone, document = :document, segment = :segment, notes = :notes WHERE id = :id');
+        $stmt->execute([
+            ':company_name' => $data['company_name'],
+            ':contact_name' => $data['contact_name'] !== '' ? $data['contact_name'] : null,
+            ':email' => $data['email'] !== '' ? $data['email'] : null,
+            ':phone' => $data['phone'] !== '' ? $data['phone'] : null,
+            ':document' => $data['document'] !== '' ? $data['document'] : null,
+            ':segment' => $data['segment'] !== '' ? $data['segment'] : null,
+            ':notes' => $data['notes'] !== '' ? $data['notes'] : null,
+            ':id' => $id,
+        ]);
+    } else {
+        $stmt = $pdo->prepare('INSERT INTO clients (company_name, contact_name, email, phone, document, segment, notes) VALUES (:company_name, :contact_name, :email, :phone, :document, :segment, :notes)');
+        $stmt->execute([
+            ':company_name' => $data['company_name'],
+            ':contact_name' => $data['contact_name'] !== '' ? $data['contact_name'] : null,
+            ':email' => $data['email'] !== '' ? $data['email'] : null,
+            ':phone' => $data['phone'] !== '' ? $data['phone'] : null,
+            ':document' => $data['document'] !== '' ? $data['document'] : null,
+            ':segment' => $data['segment'] !== '' ? $data['segment'] : null,
+            ':notes' => $data['notes'] !== '' ? $data['notes'] : null,
+        ]);
+    }
+}
+
+function pcm_delete_client(int $id): void
+{
+    $pdo = pcm_db();
+    $stmt = $pdo->prepare('DELETE FROM clients WHERE id = :id');
+    $stmt->execute([':id' => $id]);
 }
 
 function pcm_delete_technician(int $id): void
