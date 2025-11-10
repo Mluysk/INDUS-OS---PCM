@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             pcm_delete_plan($id);
             pcm_flash('success', 'Plano de manutenção removido.');
         }
-        pcm_redirect('/plans.php');
+        pcm_redirect('plans.php');
     }
 
     $id = isset($_POST['id']) ? (int) $_POST['id'] : null;
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($equipmentId <= 0 || $title === '' || $frequency === '') {
         pcm_flash('danger', 'Selecione o equipamento, informe o título e a frequência.');
         pcm_remember_old($_POST);
-        $redirect = $id ? '/plans.php?action=edit&id=' . $id : '/plans.php?action=create';
+        $redirect = $id ? 'plans.php?action=edit&id=' . $id : 'plans.php?action=create';
         pcm_redirect($redirect);
     }
 
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     pcm_flash('success', 'Plano de manutenção salvo com sucesso.');
     pcm_clear_old();
-    pcm_redirect('/plans.php');
+    pcm_redirect('plans.php');
 }
 
 $equipmentOptions = pcm_all_equipment();
@@ -64,7 +64,7 @@ if ($action === 'edit') {
     $plan = $id ? pcm_find_plan($id) : null;
     if (!$plan) {
         pcm_flash('danger', 'Plano não encontrado.');
-        pcm_redirect('/plans.php');
+        pcm_redirect('plans.php');
     }
 
     pcm_render('plans/form', [

@@ -8,7 +8,7 @@
 /** @var array $tasks */
 ?>
 <div class="mb-4 d-flex justify-content-between align-items-center">
-    <a href="/work_orders.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Voltar</a>
+    <a href="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Voltar</a>
     <?php if ($order): ?>
         <span class="badge text-bg-info text-uppercase">Status atual: <?= htmlspecialchars($order['status']) ?></span>
     <?php endif; ?>
@@ -18,7 +18,7 @@
         <h2 class="h4 mb-0"><?= htmlspecialchars($title) ?></h2>
     </div>
     <div class="card-body">
-        <form method="post" action="/work_orders.php">
+        <form method="post" action="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
             <?php if ($order): ?>
                 <input type="hidden" name="id" value="<?= $order['id'] ?>">
@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end gap-2 mt-4">
-                <a href="/work_orders.php" class="btn btn-light">Cancelar</a>
+                <a href="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>" class="btn btn-light">Cancelar</a>
                 <button type="submit" class="btn btn-primary">Salvar OS</button>
             </div>
         </form>
@@ -110,7 +110,7 @@
         </div>
     </div>
     <div class="card-body">
-        <form method="post" action="/work_orders.php" class="row g-3 align-items-end">
+        <form method="post" action="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>" class="row g-3 align-items-end">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
             <input type="hidden" name="action" value="save_task">
             <input type="hidden" name="work_order_id" value="<?= $order['id'] ?>">
@@ -144,7 +144,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="d-flex gap-2">
-                            <form method="post" action="/work_orders.php" class="d-inline">
+                            <form method="post" action="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>" class="d-inline">
                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
                                 <input type="hidden" name="action" value="save_task">
                                 <input type="hidden" name="id" value="<?= $task['id'] ?>">
@@ -155,7 +155,7 @@
                                     <?= $task['is_completed'] ? 'Desmarcar' : 'Concluir' ?>
                                 </button>
                             </form>
-                            <form method="post" action="/work_orders.php" class="d-inline" onsubmit="return confirm('Remover esta atividade?');">
+                            <form method="post" action="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>" class="d-inline" onsubmit="return confirm('Remover esta atividade?');">
                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
                                 <input type="hidden" name="action" value="delete_task">
                                 <input type="hidden" name="id" value="<?= $task['id'] ?>">

@@ -43,7 +43,7 @@ index.php, login.php, etc. (raiz) # Encaminham para os entrypoints em public/
    php -S localhost:8080 -t public
    ```
 
-   Caso utilize um ambiente como XAMPP/WAMP que aponta diretamente para a raiz do projeto, basta acessar `http://localhost/INDUS-OS---PCM/login.php`. Os arquivos na raiz redirecionam para os scripts de `public/`.
+   Caso utilize um ambiente como XAMPP/WAMP que aponta diretamente para a raiz do projeto, basta acessar `http://localhost/INDUS-OS---PCM/login.php`. A aplicação detecta automaticamente se está na raiz ou em uma subpasta (por exemplo, `http://localhost/sistemas/pcm/login.php`), mantendo todos os links e redirecionamentos funcionando. Os arquivos na raiz continuam encaminhando para os scripts de `public/` quando necessário.
 
 4. Acesse `http://localhost:8080` e faça login com:
    - Usuário: `admin@pcm.local`

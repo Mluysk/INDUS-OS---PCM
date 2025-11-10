@@ -6,9 +6,35 @@ function pcm_require_login(): void
 {
     pcm_start_session();
     if (!isset($_SESSION['user'])) {
-        header('Location: /login.php');
-        exit;
+        pcm_redirect('login.php');
     }
+}
+
+function pcm_base_path(): string
+{
+    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+    if ($scriptName === '') {
+        return '';
+    }
+
+    $directory = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
+    if ($directory === '/' || $directory === '.') {
+        return '';
+    }
+
+    return $directory;
+}
+
+function pcm_url(string $path = ''): string
+{
+    $base = pcm_base_path();
+    $normalizedPath = '/' . ltrim($path, '/');
+
+    if ($base === '' || $base === '/') {
+        return $normalizedPath;
+    }
+
+    return $base . $normalizedPath;
 }
 
 function pcm_start_session(): void
@@ -114,6 +140,10 @@ function pcm_render(string $template, array $data = []): void
 
 function pcm_redirect(string $path): void
 {
+    if (!preg_match('#^https?://#i', $path)) {
+        $path = pcm_url($path);
+    }
+
     header('Location: ' . $path);
     exit;
 }

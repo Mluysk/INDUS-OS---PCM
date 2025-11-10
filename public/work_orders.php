@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             pcm_delete_work_order($id);
             pcm_flash('success', 'Ordem de serviço removida.');
         }
-        pcm_redirect('/work_orders.php');
+        pcm_redirect('work_orders.php');
     }
 
     if ($postAction === 'save_task') {
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ], isset($_POST['id']) ? (int) $_POST['id'] : null);
             pcm_flash('success', 'Checklist atualizado.');
         }
-        pcm_redirect('/work_orders.php?action=edit&id=' . $workOrderId);
+        pcm_redirect('work_orders.php?action=edit&id=' . $workOrderId);
     }
 
     if ($postAction === 'delete_task') {
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             pcm_delete_task($taskId);
             pcm_flash('success', 'Item removido do checklist.');
         }
-        pcm_redirect('/work_orders.php?action=edit&id=' . $workOrderId);
+        pcm_redirect('work_orders.php?action=edit&id=' . $workOrderId);
     }
 
     $id = isset($_POST['id']) ? (int) $_POST['id'] : null;
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($equipmentId <= 0) {
         pcm_flash('danger', 'Selecione o equipamento.');
         pcm_remember_old($_POST);
-        $redirect = $id ? '/work_orders.php?action=edit&id=' . $id : '/work_orders.php?action=create';
+        $redirect = $id ? 'work_orders.php?action=edit&id=' . $id : 'work_orders.php?action=create';
         pcm_redirect($redirect);
     }
 
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     pcm_flash('success', 'Ordem de serviço registrada com sucesso.');
     pcm_clear_old();
-    pcm_redirect('/work_orders.php');
+    pcm_redirect('work_orders.php');
 }
 
 $equipmentOptions = pcm_all_equipment();
@@ -97,7 +97,7 @@ if ($action === 'edit') {
     $order = $id ? pcm_find_work_order($id) : null;
     if (!$order) {
         pcm_flash('danger', 'Ordem de serviço não encontrada.');
-        pcm_redirect('/work_orders.php');
+        pcm_redirect('work_orders.php');
     }
     $tasks = pcm_tasks_for_work_order($id);
 

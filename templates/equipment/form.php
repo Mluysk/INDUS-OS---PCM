@@ -4,14 +4,14 @@
 /** @var array $old */
 ?>
 <div class="mb-4">
-    <a href="/equipment.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Voltar</a>
+    <a href="<?= htmlspecialchars(pcm_url('equipment.php')) ?>" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Voltar</a>
 </div>
 <div class="card border-0">
     <div class="card-header bg-white border-0 pb-0">
         <h2 class="h4 mb-0"><?= htmlspecialchars($title) ?></h2>
     </div>
     <div class="card-body">
-        <form method="post" action="/equipment.php">
+        <form method="post" action="<?= htmlspecialchars(pcm_url('equipment.php')) ?>">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
             <?php if ($equipment): ?>
                 <input type="hidden" name="id" value="<?= $equipment['id'] ?>">
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end gap-2 mt-4">
-                <a href="/equipment.php" class="btn btn-light">Cancelar</a>
+                <a href="<?= htmlspecialchars(pcm_url('equipment.php')) ?>" class="btn btn-light">Cancelar</a>
                 <button type="submit" class="btn btn-primary">Salvar equipamento</button>
             </div>
         </form>

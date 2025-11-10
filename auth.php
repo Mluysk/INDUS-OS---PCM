@@ -14,7 +14,7 @@ function pcm_handle_login(): void
     if ($email === '' || $password === '') {
         pcm_flash('danger', 'Informe e-mail e senha.');
         pcm_remember_old($_POST);
-        pcm_redirect('/login.php');
+        pcm_redirect('login.php');
     }
 
     $pdo = pcm_db();
@@ -25,7 +25,7 @@ function pcm_handle_login(): void
     if (!$user || !password_verify($password, $user['password_hash'])) {
         pcm_flash('danger', 'Credenciais inválidas.');
         pcm_remember_old($_POST);
-        pcm_redirect('/login.php');
+        pcm_redirect('login.php');
     }
 
     pcm_start_session();
@@ -33,12 +33,12 @@ function pcm_handle_login(): void
     $_SESSION['user'] = $user;
     pcm_clear_old();
     pcm_flash('success', 'Bem-vindo de volta, ' . $user['name'] . '!');
-    pcm_redirect('/index.php');
+    pcm_redirect('index.php');
 }
 
 function pcm_logout(): void
 {
     pcm_start_session();
     session_destroy();
-    pcm_redirect('/login.php');
+    pcm_redirect('login.php');
 }

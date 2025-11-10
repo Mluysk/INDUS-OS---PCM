@@ -6,7 +6,7 @@
         <h2 class="h4 mb-0">Ordens de serviço</h2>
         <p class="text-muted mb-0">Controle operacional de corretivas, preventivas e inspeções</p>
     </div>
-    <a href="/work_orders.php?action=create" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Nova ordem</a>
+    <a href="<?= htmlspecialchars(pcm_url('work_orders.php?action=create')) ?>" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Nova ordem</a>
 </div>
 <div class="card border-0">
     <div class="card-body">
@@ -40,8 +40,8 @@
                                 <td><?= htmlspecialchars(ucfirst($order['priority'])) ?></td>
                                 <td><?= htmlspecialchars(pcm_format_date($order['due_date'])) ?></td>
                                 <td class="text-end">
-                                    <a href="/work_orders.php?action=edit&id=<?= $order['id'] ?>" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-pencil"></i></a>
-                                    <form method="post" action="/work_orders.php" class="d-inline" onsubmit="return confirm('Confirma a exclusão da OS?');">
+                                    <a href="<?= htmlspecialchars(pcm_url('work_orders.php?action=edit&id=' . $order['id'])) ?>" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-pencil"></i></a>
+                                    <form method="post" action="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>" class="d-inline" onsubmit="return confirm('Confirma a exclusão da OS?');">
                                         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
                                         <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="id" value="<?= $order['id'] ?>">

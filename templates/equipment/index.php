@@ -6,7 +6,7 @@
         <h2 class="h4 mb-0">Ativos & Equipamentos</h2>
         <p class="text-muted mb-0">Controle completo do parque industrial, criticidade e histórico</p>
     </div>
-    <a href="/equipment.php?action=create" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Novo equipamento</a>
+    <a href="<?= htmlspecialchars(pcm_url('equipment.php?action=create')) ?>" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Novo equipamento</a>
 </div>
 <div class="card border-0">
     <div class="card-body">
@@ -39,8 +39,8 @@
                                 <td><?= htmlspecialchars($equipment['criticality'] ?? '—') ?></td>
                                 <td><?= htmlspecialchars($equipment['manufacturer'] ?? '—') ?></td>
                                 <td class="text-end">
-                                    <a href="/equipment.php?action=edit&id=<?= $equipment['id'] ?>" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-pencil"></i></a>
-                                    <form action="/equipment.php" method="post" class="d-inline" onsubmit="return confirm('Confirma a exclusão do equipamento?');">
+                                    <a href="<?= htmlspecialchars(pcm_url('equipment.php?action=edit&id=' . $equipment['id'])) ?>" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-pencil"></i></a>
+                                    <form action="<?= htmlspecialchars(pcm_url('equipment.php')) ?>" method="post" class="d-inline" onsubmit="return confirm('Confirma a exclusão do equipamento?');">
                                         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
                                         <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="id" value="<?= $equipment['id'] ?>">

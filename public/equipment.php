@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             pcm_delete_equipment($id);
             pcm_flash('success', 'Equipamento removido com sucesso.');
         }
-        pcm_redirect('/equipment.php');
+        pcm_redirect('equipment.php');
     }
 
     $id = isset($_POST['id']) ? (int) $_POST['id'] : null;
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($name === '' || $assetTag === '') {
         pcm_flash('danger', 'Nome e tag patrimonial são obrigatórios.');
         pcm_remember_old($_POST);
-        $redirect = $id ? '/equipment.php?action=edit&id=' . $id : '/equipment.php?action=create';
+        $redirect = $id ? 'equipment.php?action=edit&id=' . $id : 'equipment.php?action=create';
         pcm_redirect($redirect);
     }
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     pcm_flash('success', 'Equipamento salvo com sucesso.');
     pcm_clear_old();
-    pcm_redirect('/equipment.php');
+    pcm_redirect('equipment.php');
 }
 
 if ($action === 'create') {
@@ -62,7 +62,7 @@ if ($action === 'edit') {
     $equipment = $id ? pcm_find_equipment($id) : null;
     if (!$equipment) {
         pcm_flash('danger', 'Equipamento não encontrado.');
-        pcm_redirect('/equipment.php');
+        pcm_redirect('equipment.php');
     }
 
     pcm_render('equipment/form', [

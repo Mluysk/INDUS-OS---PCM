@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             pcm_delete_technician($id);
             pcm_flash('success', 'Técnico removido com sucesso.');
         }
-        pcm_redirect('/technicians.php');
+        pcm_redirect('technicians.php');
     }
 
     $id = isset($_POST['id']) ? (int) $_POST['id'] : null;
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($name === '') {
         pcm_flash('danger', 'Nome do técnico é obrigatório.');
         pcm_remember_old($_POST);
-        $redirect = $id ? '/technicians.php?action=edit&id=' . $id : '/technicians.php?action=create';
+        $redirect = $id ? 'technicians.php?action=edit&id=' . $id : 'technicians.php?action=create';
         pcm_redirect($redirect);
     }
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     pcm_flash('success', 'Técnico salvo com sucesso.');
     pcm_clear_old();
-    pcm_redirect('/technicians.php');
+    pcm_redirect('technicians.php');
 }
 
 if ($action === 'create') {
@@ -64,7 +64,7 @@ if ($action === 'edit') {
 
     if (!$technician) {
         pcm_flash('danger', 'Técnico não encontrado.');
-        pcm_redirect('/technicians.php');
+        pcm_redirect('technicians.php');
     }
 
     pcm_render('technicians/form', [

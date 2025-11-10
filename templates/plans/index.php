@@ -6,7 +6,7 @@
         <h2 class="h4 mb-0">Planos de manutenção</h2>
         <p class="text-muted mb-0">Programações preventivas, inspeções e rotinas padronizadas</p>
     </div>
-    <a href="/plans.php?action=create" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Novo plano</a>
+    <a href="<?= htmlspecialchars(pcm_url('plans.php?action=create')) ?>" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Novo plano</a>
 </div>
 <div class="card border-0">
     <div class="card-body">
@@ -37,8 +37,8 @@
                                 <td><?= htmlspecialchars($plan['frequency']) ?></td>
                                 <td><?= $plan['estimated_duration'] ? htmlspecialchars($plan['estimated_duration'] . ' min') : '—' ?></td>
                                 <td class="text-end">
-                                    <a href="/plans.php?action=edit&id=<?= $plan['id'] ?>" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-pencil"></i></a>
-                                    <form method="post" action="/plans.php" class="d-inline" onsubmit="return confirm('Confirma a exclusão do plano?');">
+                                    <a href="<?= htmlspecialchars(pcm_url('plans.php?action=edit&id=' . $plan['id'])) ?>" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-pencil"></i></a>
+                                    <form method="post" action="<?= htmlspecialchars(pcm_url('plans.php')) ?>" class="d-inline" onsubmit="return confirm('Confirma a exclusão do plano?');">
                                         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
                                         <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="id" value="<?= $plan['id'] ?>">

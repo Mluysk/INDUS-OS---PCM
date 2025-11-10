@@ -33,16 +33,21 @@
                 <nav class="flex-grow-1">
                     <?php
                         $menu = [
-                            ['href' => '/index.php', 'label' => 'Dashboard', 'icon' => 'bi-speedometer2'],
-                            ['href' => '/equipment.php', 'label' => 'Ativos & Equipamentos', 'icon' => 'bi-box-seam'],
-                            ['href' => '/plans.php', 'label' => 'Planos de Manutenção', 'icon' => 'bi-calendar2-check'],
-                            ['href' => '/work_orders.php', 'label' => 'Ordens de Serviço', 'icon' => 'bi-clipboard-check'],
-                            ['href' => '/technicians.php', 'label' => 'Técnicos', 'icon' => 'bi-people'],
+                            ['href' => pcm_url('index.php'), 'label' => 'Dashboard', 'icon' => 'bi-speedometer2'],
+                            ['href' => pcm_url('equipment.php'), 'label' => 'Ativos & Equipamentos', 'icon' => 'bi-box-seam'],
+                            ['href' => pcm_url('plans.php'), 'label' => 'Planos de Manutenção', 'icon' => 'bi-calendar2-check'],
+                            ['href' => pcm_url('work_orders.php'), 'label' => 'Ordens de Serviço', 'icon' => 'bi-clipboard-check'],
+                            ['href' => pcm_url('technicians.php'), 'label' => 'Técnicos', 'icon' => 'bi-people'],
                         ];
-                        $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+                        $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?? '';
+                        $basePath = pcm_base_path();
+                        $homePath = $basePath === '' ? '/' : $basePath . '/';
+                        if ($currentPath === '' || $currentPath === $homePath) {
+                            $currentPath = pcm_url('index.php');
+                        }
                     ?>
                     <?php foreach ($menu as $item): ?>
-                        <a href="<?= $item['href'] ?>" class="<?= $currentPath === $item['href'] ? 'active' : '' ?>">
+                        <a href="<?= htmlspecialchars($item['href']) ?>" class="<?= $currentPath === $item['href'] ? 'active' : '' ?>">
                             <i class="bi <?= $item['icon'] ?> me-2"></i><?= htmlspecialchars($item['label']) ?>
                         </a>
                     <?php endforeach; ?>
@@ -50,7 +55,7 @@
                 <div class="p-3 border-top border-light-subtle mt-auto">
                     <div class="text-white fw-semibold"><?= htmlspecialchars($currentUser['name']) ?></div>
                     <div class="text-white-50 small mb-2"><?= htmlspecialchars($currentUser['email']) ?></div>
-                    <a href="/logout.php" class="btn btn-outline-light btn-sm w-100"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
+                    <a href="<?= htmlspecialchars(pcm_url('logout.php')) ?>" class="btn btn-outline-light btn-sm w-100"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
                 </div>
             </aside>
             <main class="col-md-10 ms-sm-auto">

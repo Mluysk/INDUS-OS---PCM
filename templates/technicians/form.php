@@ -4,14 +4,14 @@
 /** @var array $old */
 ?>
 <div class="mb-4">
-    <a href="/technicians.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Voltar</a>
+    <a href="<?= htmlspecialchars(pcm_url('technicians.php')) ?>" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Voltar</a>
 </div>
 <div class="card border-0">
     <div class="card-header bg-white border-0 pb-0">
         <h2 class="h4 mb-0"><?= htmlspecialchars($title) ?></h2>
     </div>
     <div class="card-body">
-        <form method="post" action="/technicians.php">
+        <form method="post" action="<?= htmlspecialchars(pcm_url('technicians.php')) ?>">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
             <?php if ($technician): ?>
                 <input type="hidden" name="id" value="<?= $technician['id'] ?>">
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end gap-2 mt-4">
-                <a href="/technicians.php" class="btn btn-light">Cancelar</a>
+                <a href="<?= htmlspecialchars(pcm_url('technicians.php')) ?>" class="btn btn-light">Cancelar</a>
                 <button type="submit" class="btn btn-primary">Salvar técnico</button>
             </div>
         </form>
