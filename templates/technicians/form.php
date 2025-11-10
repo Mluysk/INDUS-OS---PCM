@@ -3,13 +3,16 @@
 /** @var array|null $technician */
 /** @var array $old */
 ?>
-<div class="mb-4">
-    <a href="<?= htmlspecialchars(pcm_url('technicians.php')) ?>" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Voltar</a>
-</div>
-<div class="card border-0">
-    <div class="card-header bg-white border-0 pb-0">
+<div class="app-section-head">
+    <div>
         <h2 class="h4 mb-0"><?= htmlspecialchars($title) ?></h2>
+        <p class="text-muted mb-0">Mantenha dados atualizados para direcionar chamados e competências.</p>
     </div>
+    <div class="d-flex gap-2">
+        <a href="<?= htmlspecialchars(pcm_url('technicians.php')) ?>" class="btn btn-soft"><i class="bi bi-arrow-left"></i> Voltar</a>
+    </div>
+</div>
+<div class="card border-0 app-form-card">
     <div class="card-body">
         <form method="post" action="<?= htmlspecialchars(pcm_url('technicians.php')) ?>">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">

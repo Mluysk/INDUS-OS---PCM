@@ -13,10 +13,11 @@ function pcm_dashboard_metrics(): array
     $technicians = (int) $pdo->query('SELECT COUNT(*) FROM technicians')->fetchColumn();
 
     $statusDistribution = $pdo->query('SELECT status, COUNT(*) as total FROM work_orders GROUP BY status')->fetchAll();
-    $recentWorkOrders = $pdo->query('SELECT wo.*, eq.name AS equipment_name, tech.name AS technician_name
+    $recentWorkOrders = $pdo->query('SELECT wo.*, eq.name AS equipment_name, tech.name AS technician_name, mp.title AS plan_title
         FROM work_orders wo
         LEFT JOIN equipment eq ON eq.id = wo.equipment_id
         LEFT JOIN technicians tech ON tech.id = wo.technician_id
+        LEFT JOIN maintenance_plans mp ON mp.id = wo.plan_id
         ORDER BY wo.id DESC LIMIT 5')->fetchAll();
 
     return [
@@ -175,10 +176,11 @@ function pcm_delete_plan(int $id): void
 function pcm_all_work_orders(): array
 {
     $pdo = pcm_db();
-    $stmt = $pdo->query('SELECT wo.*, eq.name AS equipment_name, tech.name AS technician_name
+    $stmt = $pdo->query('SELECT wo.*, eq.name AS equipment_name, tech.name AS technician_name, mp.title AS plan_title
         FROM work_orders wo
         JOIN equipment eq ON eq.id = wo.equipment_id
         LEFT JOIN technicians tech ON tech.id = wo.technician_id
+        LEFT JOIN maintenance_plans mp ON mp.id = wo.plan_id
         ORDER BY wo.id DESC');
     return $stmt->fetchAll();
 }
@@ -186,10 +188,11 @@ function pcm_all_work_orders(): array
 function pcm_find_work_order(int $id): ?array
 {
     $pdo = pcm_db();
-    $stmt = $pdo->prepare('SELECT wo.*, eq.name AS equipment_name, tech.name AS technician_name
+    $stmt = $pdo->prepare('SELECT wo.*, eq.name AS equipment_name, tech.name AS technician_name, mp.title AS plan_title
         FROM work_orders wo
         JOIN equipment eq ON eq.id = wo.equipment_id
         LEFT JOIN technicians tech ON tech.id = wo.technician_id
+        LEFT JOIN maintenance_plans mp ON mp.id = wo.plan_id
         WHERE wo.id = :id');
     $stmt->execute([':id' => $id]);
     $order = $stmt->fetch();

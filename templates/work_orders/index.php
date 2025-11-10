@@ -1,14 +1,14 @@
 <?php
 /** @var array $workOrders */
 ?>
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="app-section-head">
     <div>
         <h2 class="h4 mb-0">Ordens de serviço</h2>
         <p class="text-muted mb-0">Controle operacional de corretivas, preventivas e inspeções</p>
     </div>
     <a href="<?= htmlspecialchars(pcm_url('work_orders.php?action=create')) ?>" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Nova ordem</a>
 </div>
-<div class="card border-0">
+<div class="card border-0 app-table-card">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table align-middle">
@@ -34,9 +34,16 @@
                             <tr>
                                 <td class="fw-semibold">#<?= $order['id'] ?></td>
                                 <td><?= htmlspecialchars($order['equipment_name']) ?></td>
-                                <td><?= $order['plan_id'] ? htmlspecialchars('Plano #' . $order['plan_id']) : '—' ?></td>
+                                <td>
+                                    <?php if ($order['plan_id']): ?>
+                                        <span class="badge text-bg-light text-uppercase d-inline-flex align-items-center gap-1 mb-1"><i class="bi bi-diagram-3"></i> <?= htmlspecialchars($order['plan_title'] ?? ('Plano #' . $order['plan_id'])) ?></span>
+                                        <div class="small text-muted">#<?= $order['plan_id'] ?></div>
+                                    <?php else: ?>
+                                        —
+                                    <?php endif; ?>
+                                </td>
                                 <td><?= htmlspecialchars($order['technician_name'] ?? '—') ?></td>
-                                <td><span class="badge text-bg-secondary text-uppercase"><?= htmlspecialchars($order['status']) ?></span></td>
+                                <td><span class="badge text-bg-dark text-uppercase px-3 py-2"><?= htmlspecialchars($order['status']) ?></span></td>
                                 <td><?= htmlspecialchars(ucfirst($order['priority'])) ?></td>
                                 <td><?= htmlspecialchars(pcm_format_date($order['due_date'])) ?></td>
                                 <td class="text-end">

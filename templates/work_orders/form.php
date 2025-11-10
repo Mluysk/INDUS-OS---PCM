@@ -7,16 +7,19 @@
 /** @var array $planOptions */
 /** @var array $tasks */
 ?>
-<div class="mb-4 d-flex justify-content-between align-items-center">
-    <a href="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Voltar</a>
-    <?php if ($order): ?>
-        <span class="badge text-bg-info text-uppercase">Status atual: <?= htmlspecialchars($order['status']) ?></span>
-    <?php endif; ?>
-</div>
-<div class="card border-0 mb-4">
-    <div class="card-header bg-white border-0 pb-0">
+<div class="app-section-head">
+    <div>
         <h2 class="h4 mb-0"><?= htmlspecialchars($title) ?></h2>
+        <p class="text-muted mb-0">Centralize informações, status e responsáveis para execução assertiva.</p>
     </div>
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+        <?php if ($order): ?>
+            <span class="badge text-bg-info text-uppercase px-3 py-2">Status atual: <?= htmlspecialchars($order['status']) ?></span>
+        <?php endif; ?>
+        <a href="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>" class="btn btn-soft"><i class="bi bi-arrow-left"></i> Voltar</a>
+    </div>
+</div>
+<div class="card border-0 app-form-card mb-4">
     <div class="card-body">
         <form method="post" action="<?= htmlspecialchars(pcm_url('work_orders.php')) ?>">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(pcm_csrf_token()) ?>">
@@ -102,7 +105,7 @@
 </div>
 
 <?php if ($order): ?>
-<div class="card border-0">
+<div class="card border-0 app-form-card">
     <div class="card-header bg-white border-0 pb-0 d-flex justify-content-between align-items-center">
         <div>
             <h2 class="h5 mb-0">Checklist da OS</h2>

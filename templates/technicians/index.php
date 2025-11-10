@@ -1,14 +1,14 @@
 <?php
 /** @var array $technicians */
 ?>
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="app-section-head">
     <div>
         <h2 class="h4 mb-0">Equipe técnica</h2>
         <p class="text-muted mb-0">Gestão de competências, contatos e disponibilidade</p>
     </div>
     <a href="<?= htmlspecialchars(pcm_url('technicians.php?action=create')) ?>" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Novo técnico</a>
 </div>
-<div class="card border-0">
+<div class="card border-0 app-table-card">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table align-middle">

@@ -1,63 +1,59 @@
 <?php
 /** @var array $metrics */
 ?>
-<div class="row g-4">
+<div class="row g-4 app-metric-grid">
     <div class="col-md-3">
-        <div class="card border-0">
+        <div class="card border-0 app-metric-card app-metric-card--blue">
             <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0 bg-primary bg-opacity-10 text-primary rounded-3 p-3 me-3">
-                        <i class="bi bi-box-seam fs-4"></i>
-                    </div>
-                    <div>
-                        <h6 class="text-uppercase text-muted small mb-1">Equipamentos</h6>
-                        <h3 class="fw-semibold mb-0"><?= $metrics['equipment'] ?></h3>
-                    </div>
+                <div class="app-metric-icon">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Equipamentos</h6>
+                    <h3 class="fw-semibold mb-0"><?= $metrics['equipment'] ?></h3>
+                    <span class="d-block small opacity-75">Inventário monitorado</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card border-0">
+        <div class="card border-0 app-metric-card app-metric-card--emerald">
             <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0 bg-success bg-opacity-10 text-success rounded-3 p-3 me-3">
-                        <i class="bi bi-calendar2-check fs-4"></i>
-                    </div>
-                    <div>
-                        <h6 class="text-uppercase text-muted small mb-1">Planos</h6>
-                        <h3 class="fw-semibold mb-0"><?= $metrics['plans'] ?></h3>
-                    </div>
+                <div class="app-metric-icon">
+                    <i class="bi bi-calendar2-check"></i>
+                </div>
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Planos</h6>
+                    <h3 class="fw-semibold mb-0"><?= $metrics['plans'] ?></h3>
+                    <span class="d-block small opacity-75">Rotinas preventivas</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card border-0">
+        <div class="card border-0 app-metric-card app-metric-card--amber">
             <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0 bg-warning bg-opacity-10 text-warning rounded-3 p-3 me-3">
-                        <i class="bi bi-clipboard-check fs-4"></i>
-                    </div>
-                    <div>
-                        <h6 class="text-uppercase text-muted small mb-1">Ordens Abertas</h6>
-                        <h3 class="fw-semibold mb-0"><?= $metrics['open_work_orders'] ?></h3>
-                    </div>
+                <div class="app-metric-icon">
+                    <i class="bi bi-clipboard-check"></i>
+                </div>
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Ordens Abertas</h6>
+                    <h3 class="fw-semibold mb-0"><?= $metrics['open_work_orders'] ?></h3>
+                    <span class="d-block small opacity-75">Em execução</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card border-0">
+        <div class="card border-0 app-metric-card app-metric-card--sky">
             <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0 bg-info bg-opacity-10 text-info rounded-3 p-3 me-3">
-                        <i class="bi bi-people fs-4"></i>
-                    </div>
-                    <div>
-                        <h6 class="text-uppercase text-muted small mb-1">Técnicos</h6>
-                        <h3 class="fw-semibold mb-0"><?= $metrics['technicians'] ?></h3>
-                    </div>
+                <div class="app-metric-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Técnicos</h6>
+                    <h3 class="fw-semibold mb-0"><?= $metrics['technicians'] ?></h3>
+                    <span class="d-block small opacity-75">Equipe disponível</span>
                 </div>
             </div>
         </div>
@@ -66,9 +62,13 @@
 
 <div class="row g-4 mt-2">
     <div class="col-lg-8">
-        <div class="card border-0 h-100">
-            <div class="card-header bg-white border-0 pb-0">
-                <h2 class="h5 mb-0">Ordens de Serviço Recentes</h2>
+        <div class="card border-0 h-100 app-table-card">
+            <div class="card-header bg-white border-0 pb-0 d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="h5 mb-0">Ordens de Serviço Recentes</h2>
+                    <p class="text-muted small mb-0">Acompanhe as últimas movimentações da operação</p>
+                </div>
+                <span class="badge text-bg-light text-uppercase">Tempo real</span>
             </div>
             <div class="card-body">
                 <?php if (empty($metrics['recent_work_orders'])): ?>
@@ -89,10 +89,13 @@
                             <tbody>
                                 <?php foreach ($metrics['recent_work_orders'] as $order): ?>
                                     <tr>
-                                        <td>#<?= $order['id'] ?></td>
-                                        <td><?= htmlspecialchars($order['equipment_name']) ?></td>
+                                        <td class="fw-semibold">#<?= $order['id'] ?></td>
+                                        <td>
+                                            <?= htmlspecialchars($order['equipment_name']) ?><br>
+                                            <small class="text-muted">Plano: <?= htmlspecialchars($order['plan_title'] ?? '—') ?></small>
+                                        </td>
                                         <td><?= htmlspecialchars($order['technician_name'] ?? '—') ?></td>
-                                        <td><span class="badge bg-secondary text-uppercase"><?= htmlspecialchars($order['status']) ?></span></td>
+                                        <td><span class="badge text-bg-dark text-uppercase px-3 py-2"><?= htmlspecialchars($order['status']) ?></span></td>
                                         <td><?= htmlspecialchars(ucfirst($order['priority'])) ?></td>
                                         <td><?= htmlspecialchars(pcm_format_date($order['due_date'])) ?></td>
                                     </tr>
@@ -108,6 +111,7 @@
         <div class="card border-0 h-100">
             <div class="card-header bg-white border-0 pb-0">
                 <h2 class="h5 mb-0">Status das OS</h2>
+                <p class="text-muted small mb-0">Distribuição geral</p>
             </div>
             <div class="card-body">
                 <?php if (empty($metrics['status_distribution'])): ?>

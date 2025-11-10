@@ -1,14 +1,14 @@
 <?php
 /** @var array $plans */
 ?>
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="app-section-head">
     <div>
         <h2 class="h4 mb-0">Planos de manutenção</h2>
         <p class="text-muted mb-0">Programações preventivas, inspeções e rotinas padronizadas</p>
     </div>
     <a href="<?= htmlspecialchars(pcm_url('plans.php?action=create')) ?>" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Novo plano</a>
 </div>
-<div class="card border-0">
+<div class="card border-0 app-table-card">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table align-middle">
