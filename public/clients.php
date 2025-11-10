@@ -30,6 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         pcm_redirect($redirect);
     }
 
+    $zipCode = preg_replace('/\D+/', '', $_POST['zip_code'] ?? '');
+
     pcm_save_client([
         'company_name' => $companyName,
         'contact_name' => trim($_POST['contact_name'] ?? ''),
@@ -38,6 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'document' => trim($_POST['document'] ?? ''),
         'segment' => trim($_POST['segment'] ?? ''),
         'notes' => trim($_POST['notes'] ?? ''),
+        'zip_code' => $zipCode,
+        'street' => trim($_POST['street'] ?? ''),
+        'number' => trim($_POST['number'] ?? ''),
+        'neighborhood' => trim($_POST['neighborhood'] ?? ''),
+        'city' => trim($_POST['city'] ?? ''),
+        'state' => strtoupper(trim($_POST['state'] ?? '')),
     ], $id ?: null);
 
     pcm_flash('success', 'Cliente salvo com sucesso.');

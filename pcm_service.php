@@ -135,7 +135,7 @@ function pcm_save_client(array $data, ?int $id = null): void
 {
     $pdo = pcm_db();
     if ($id) {
-        $stmt = $pdo->prepare('UPDATE clients SET company_name = :company_name, contact_name = :contact_name, email = :email, phone = :phone, document = :document, segment = :segment, notes = :notes WHERE id = :id');
+        $stmt = $pdo->prepare('UPDATE clients SET company_name = :company_name, contact_name = :contact_name, email = :email, phone = :phone, document = :document, segment = :segment, notes = :notes, zip_code = :zip_code, street = :street, number = :number, neighborhood = :neighborhood, city = :city, state = :state WHERE id = :id');
         $stmt->execute([
             ':company_name' => $data['company_name'],
             ':contact_name' => $data['contact_name'] !== '' ? $data['contact_name'] : null,
@@ -144,10 +144,16 @@ function pcm_save_client(array $data, ?int $id = null): void
             ':document' => $data['document'] !== '' ? $data['document'] : null,
             ':segment' => $data['segment'] !== '' ? $data['segment'] : null,
             ':notes' => $data['notes'] !== '' ? $data['notes'] : null,
+            ':zip_code' => $data['zip_code'] !== '' ? $data['zip_code'] : null,
+            ':street' => $data['street'] !== '' ? $data['street'] : null,
+            ':number' => $data['number'] !== '' ? $data['number'] : null,
+            ':neighborhood' => $data['neighborhood'] !== '' ? $data['neighborhood'] : null,
+            ':city' => $data['city'] !== '' ? $data['city'] : null,
+            ':state' => $data['state'] !== '' ? $data['state'] : null,
             ':id' => $id,
         ]);
     } else {
-        $stmt = $pdo->prepare('INSERT INTO clients (company_name, contact_name, email, phone, document, segment, notes) VALUES (:company_name, :contact_name, :email, :phone, :document, :segment, :notes)');
+        $stmt = $pdo->prepare('INSERT INTO clients (company_name, contact_name, email, phone, document, segment, notes, zip_code, street, number, neighborhood, city, state) VALUES (:company_name, :contact_name, :email, :phone, :document, :segment, :notes, :zip_code, :street, :number, :neighborhood, :city, :state)');
         $stmt->execute([
             ':company_name' => $data['company_name'],
             ':contact_name' => $data['contact_name'] !== '' ? $data['contact_name'] : null,
@@ -156,6 +162,12 @@ function pcm_save_client(array $data, ?int $id = null): void
             ':document' => $data['document'] !== '' ? $data['document'] : null,
             ':segment' => $data['segment'] !== '' ? $data['segment'] : null,
             ':notes' => $data['notes'] !== '' ? $data['notes'] : null,
+            ':zip_code' => $data['zip_code'] !== '' ? $data['zip_code'] : null,
+            ':street' => $data['street'] !== '' ? $data['street'] : null,
+            ':number' => $data['number'] !== '' ? $data['number'] : null,
+            ':neighborhood' => $data['neighborhood'] !== '' ? $data['neighborhood'] : null,
+            ':city' => $data['city'] !== '' ? $data['city'] : null,
+            ':state' => $data['state'] !== '' ? $data['state'] : null,
         ]);
     }
 }

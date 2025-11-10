@@ -34,8 +34,30 @@ function pcm_update_schema(PDO $pdo): void
         phone TEXT,
         document TEXT,
         segment TEXT,
-        notes TEXT
+        notes TEXT,
+        zip_code TEXT,
+        street TEXT,
+        number TEXT,
+        neighborhood TEXT,
+        city TEXT,
+        state TEXT
     )');
+
+    $columns = $pdo->query('PRAGMA table_info(clients)')->fetchAll(PDO::FETCH_COLUMN, 1);
+    $desired = [
+        'zip_code' => 'TEXT',
+        'street' => 'TEXT',
+        'number' => 'TEXT',
+        'neighborhood' => 'TEXT',
+        'city' => 'TEXT',
+        'state' => 'TEXT',
+    ];
+
+    foreach ($desired as $column => $type) {
+        if (!in_array($column, $columns, true)) {
+            $pdo->exec(sprintf('ALTER TABLE clients ADD COLUMN %s %s', $column, $type));
+        }
+    }
 }
 
 function pcm_bootstrap_schema(PDO $pdo): void

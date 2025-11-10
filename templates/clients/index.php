@@ -18,13 +18,14 @@
                         <th>Responsável</th>
                         <th>Contato</th>
                         <th>Segmento</th>
+                        <th>Localização</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($clients)): ?>
                         <tr>
-                            <td colspan="5" class="text-center text-muted py-4">Nenhum cliente cadastrado.</td>
+                            <td colspan="6" class="text-center text-muted py-4">Nenhum cliente cadastrado.</td>
                         </tr>
                     <?php else: ?>
                         <?php foreach ($clients as $client): ?>
@@ -39,6 +40,39 @@
                                     <div class="text-muted small"><?= htmlspecialchars($client['phone'] ?: '') ?></div>
                                 </td>
                                 <td><?= htmlspecialchars($client['segment'] ?: '—') ?></td>
+                                <td>
+                                    <?php
+                                    $addressLines = [];
+                                    if (!empty($client['street'])) {
+                                        $line = $client['street'];
+                                        if (!empty($client['number'])) {
+                                            $line .= ', ' . $client['number'];
+                                        }
+                                        $addressLines[] = $line;
+                                    }
+                                    if (!empty($client['neighborhood'])) {
+                                        $addressLines[] = $client['neighborhood'];
+                                    }
+                                    $cityState = trim(($client['city'] ?? '') . (!empty($client['state']) ? ' / ' . $client['state'] : ''));
+                                    if ($cityState !== '') {
+                                        $addressLines[] = $cityState;
+                                    }
+                                    if (!empty($client['zip_code'])) {
+                                        $zip = $client['zip_code'];
+                                        if (preg_match('/^\d{8}$/', $zip)) {
+                                            $zip = substr($zip, 0, 5) . '-' . substr($zip, 5);
+                                        }
+                                        $addressLines[] = 'CEP ' . $zip;
+                                    }
+                                    ?>
+                                    <?php if (!empty($addressLines)): ?>
+                                        <?php foreach ($addressLines as $line): ?>
+                                            <div><?= htmlspecialchars($line) ?></div>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <span class="text-muted">—</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td class="text-end">
                                     <a href="<?= htmlspecialchars(pcm_url('clients.php?action=edit&id=' . $client['id'])) ?>" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-pencil"></i></a>
                                     <form method="post" action="<?= htmlspecialchars(pcm_url('clients.php')) ?>" class="d-inline" onsubmit="return confirm('Confirma a exclusão do cliente?');">
